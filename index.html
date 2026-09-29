@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>63CLUB - Color Game Original </title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f4f6fa;
+  color:#222;
+}
+
+button,input{
+  font-family:inherit;
+}
+
+.app{
+  max-width:480px;
+  min-height:100vh;
+  margin:auto;
+  background:#fff;
+  box-shadow:0 0 20px rgba(0,0,0,.08);
+  padding-bottom:70px;
+}
+
+/* HEADER */
+
+.header{
+  height:62px;
+  background:linear-gradient(135deg,#ff3b30,#ff006e);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.header-balance{
+  background:rgba(255,255,255,.18);
+  padding:8px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+  padding:18px;
+}
+
+.page.active{
+  display:block;
+}
+
+/* HOME */
+
+.hero{
+  background:linear-gradient(135deg,#ff3b30,#ff006e);
+  color:#fff;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:15px;
+}
+
+.hero h1{
+  font-size:27px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  font-size:14px;
+  opacity:.9;
+}
+
+.balance-card{
+  background:#fff;
+  border-radius:16px;
+  padding:18px;
+  margin-top:15px;
+  color:#222;
+  box-shadow:0 5px 20px rgba(0,0,0,.12);
+}
+
+.balance-title{
+  color:#777;
+  font-size:13px;
+}
+
+.balance{
+  font-size:30px;
+  font-weight:bold;
+  margin:7px 0 15px;
+}
+
+.btn-row{
+  display:flex;
+  gap:10px;
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:12px 16px;
+  cursor:pointer;
+  font-weight:bold;
+  flex:1;
+}
+
+.btn-primary{
+  background:#ff1744;
+  color:#fff;
+}
+
+.btn-green{
+  background:#16a34a;
+  color:#fff;
+}
+
+.btn-dark{
+  background:#222;
+  color:#fff;
+}
+
+.btn-light{
+  background:#eee;
+  color:#222;
+}
+
+/* SECTION */
+
+.section-title{
+  font-size:19px;
+  font-weight:bold;
+  margin:22px 0 12px;
+}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.menu-card{
+  padding:18px;
+  border-radius:15px;
+  background:#f7f7f7;
+  border:1px solid #eee;
+  cursor:pointer;
+}
+
+.menu-card .icon{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.menu-card b{
+  display:block;
+}
+
+.menu-card small{
+  color:#777;
+}
+
+/* FORMS */
+
+.form-box{
+  margin-top:20px;
+}
+
+.form-box h2{
+  margin-bottom:8px;
+}
+
+.form-box p{
+  color:#777;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.input{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin-bottom:12px;
+  outline:none;
+  font-size:15px;
+}
+
+.input:focus{
+  border-color:#ff1744;
+}
+
+.full-btn{
+  width:100%;
+  border:0;
+  padding:14px;
+  border-radius:10px;
+  background:#ff1744;
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.switch-text{
+  text-align:center;
+  margin-top:18px;
+  font-size:14px;
+}
+
+.switch-text span{
+  color:#ff1744;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* GAME */
+
+.game-card{
+  background:#f8f8f8;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+}
+
+.period{
+  font-size:13px;
+  color:#777;
+}
+
+.timer{
+  font-size:40px;
+  font-weight:bold;
+  margin:10px 0 18px;
+}
+
+.color-buttons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.color-btn{
+  border:0;
+  padding:16px 5px;
+  color:white;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.red{
+  background:#ef233c;
+}
+
+.green{
+  background:#16a34a;
+}
+
+.violet{
+  background:#8b5cf6;
+}
+
+.demo-note{
+  margin-top:15px;
+  background:#fff3cd;
+  color:#765800;
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+}
+
+/* HISTORY */
+
+.history-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px;
+  border-bottom:1px solid #eee;
+}
+
+.history-item:last-child{
+  border-bottom:0;
+}
+
+.history-left b{
+  display:block;
+}
+
+.history-left small{
+  color:#888;
+}
+
+.result-red{
+  color:#ef233c;
+  font-weight:bold;
+}
+
+.result-green{
+  color:#16a34a;
+  font-weight:bold;
+}
+
+.result-violet{
+  color:#8b5cf6;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  color:#888;
+  padding:30px 10px;
+}
+
+/* ACCOUNT */
+
+.profile{
+  text-align:center;
+  padding:20px;
+}
+
+.avatar{
+  width:75px;
+  height:75px;
+  margin:auto;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff3b30,#ff006e);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  font-weight:bold;
+}
+
+.profile h2{
+  margin-top:10px;
+}
+
+.profile small{
+  color:#777;
+}
+
+.account-menu{
+  margin-top:15px;
+}
+
+.account-item{
+  padding:16px;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+}
+
+.account-item span{
+  color:#777;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  height:65px;
+  background:#fff;
+  border-top:1px solid #ddd;
+  display:flex;
+  z-index:100;
+}
+
+.nav-btn{
+  flex:1;
+  border:0;
+  background:#fff;
+  color:#777;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.nav-btn.active{
+  color:#ff1744;
+  font-weight:bold;
+}
+
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:85px;
+  transform:translateX(-50%) translateY(20px);
+  background:#222;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:8px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:200;
+  font-size:13px;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* BACK */
+
+.back{
+  border:0;
+  background:none;
+  font-size:22px;
+  cursor:pointer;
+  margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- HEADER -->
+
+<header class="header">
+  <div class="logo">63CLUB</div>
+  <div class="header-balance">
+    🪙 <span id="topBalance">1000</span>
+  </div>
+</header>
+
+
+<!-- HOME -->
+
+<section id="homePage" class="page active">
+
+  <div class="hero">
+
+    <h1>Welcome to 63CLUB</h1>
+
+    <p>
+      Color Prediction Demo Platform
+    </p>
+
+    <div class="balance-card">
+
+      <div class="balance-title">
+        Virtual Balance
+      </div>
+
+      <div class="balance">
+        🪙 <span id="homeBalance">1000</span>
+      </div>
+
+      <div class="btn-row">
+
+        <button class="btn btn-green"
+          onclick="openPage('depositPage')">
+          + Deposit
+        </button>
+
+        <button class="btn btn-dark"
+          onclick="openPage('withdrawPage')">
+          Withdraw
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="section-title">
+    Quick Access
+  </div>
+
+  <div class="menu-grid">
+
+    <div class="menu-card"
+      onclick="openPage('gamePage')">
+
+      <div class="icon">🎮</div>
+      <b>Color Game</b>
+      <small>Play demo game</small>
+
+    </div>
+
+
+    <div class="menu-card"
+      onclick="openPage('historyPage')">
+
+      <div class="icon">📜</div>
+      <b>History</b>
+      <small>View game history</small>
+
+    </div>
+
+
+    <div class="menu-card"
+      onclick="openPage('depositPage')">
+
+      <div class="icon">💰</div>
+      <b>Demo Deposit</b>
+      <small>Add virtual coins</small>
+
+    </div>
+
+
+    <div class="menu-card"
+      onclick="openPage('accountPage')">
+
+      <div class="icon">👤</div>
+      <b>Account</b>
+      <small>Profile settings</small>
+
+    </div>
+
+  </div>
+
+
+  <div class="section-title">
+    Latest Results
+  </div>
+
+  <div id="latestResults"></div>
+
+</section>
+
+
+
+<!-- LOGIN -->
+
+<section id="loginPage" class="page">
+
+  <button class="back"
+    onclick="openPage('homePage')">
+    ←
+  </button>
+
+  <div class="form-box">
+
+    <h2>Login</h2>
+
+    <p>
+      Login to your 63CLUB demo account
+    </p>
+
+    <input
+      id="loginUsername"
+      class="input"
+      placeholder="Username"
+    >
+
+    <input
+      id="loginPassword"
+      class="input"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button
+      class="full-btn"
+      onclick="login()">
+      Login
+    </button>
+
+    <div class="switch-text">
+      Don't have an account?
+      <span onclick="openPage('registerPage')">
+        Sign Up
+      </span>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- REGISTER -->
+
+<section id="registerPage" class="page">
+
+  <button class="back"
+    onclick="openPage('homePage')">
+    ←
+  </button>
+
+  <div class="form-box">
+
+    <h2>Create Account</h2>
+
+    <p>
+      Create your free 63CLUB demo account
+    </p>
+
+    <input
+      id="regUsername"
+      class="input"
+      placeholder="Username"
+    >
+
+    <input
+      id="regPassword"
+      class="input"
+      type="password"
+      placeholder="Password"
+    >
+
+    <input
+      id="regConfirm"
+      class="input"
+      type="password"
+      placeholder="Confirm Password"
+    >
+
+    <button
+      class="full-btn"
+      onclick="register()">
+      Sign Up
+    </button>
+
+    <div class="switch-text">
+      Already have an account?
+      <span onclick="openPage('loginPage')">
+        Login
+      </span>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- GAME -->
+
+<section id="gamePage" class="page">
+
+  <button class="back"
+    onclick="openPage('homePage')">
+    ←
+  </button>
+
+  <h2>Color Prediction Demo</h2>
+
+  <p style="color:#777;margin:7px 0 15px;">
+    Select a color using virtual coins.
+  </p>
+
+
+  <div class="game-card">
+
+    <div class="period">
+      Demo Round
+    </div>
+
+    <div class="timer">
+      <span id="timer">30</span>s
+    </div>
+
+    <div class="color-buttons">
+
+      <button
+        class="color-btn red"
+        onclick="playGame('Red')">
+        🔴 Red
+      </button>
+
+      <button
+        class="color-btn green"
+        onclick="playGame('Green')">
+        🟢 Green
+      </button>
+
+      <button
+        class="color-btn violet"
+        onclick="playGame('Violet')">
+        🟣 Violet
+      </button>
+
+    </div>
+
+    <div class="-note">
+      ⚠️ Demo only. No real money, UPI,
+      deposits or cash withdrawals.
+    </div>
+
+  </div>
+
+
+  <div class="section-title">
+    Your Recent Games
+  </div>
+
+  <div id="gameHistory"></div>
+
+</section>
+
+
+
+<!-- HISTORY -->
+
+<section id="historyPage" class="page">
+
+  <button class="back"
+    onclick="openPage('homePage')">
+    ←
+  </button>
+
+  <h2>Game History</h2>
+
+  <div id="historyList"
+    style="margin-top:15px;">
+  </div>
+
+</section>
+
+
+
+<!-- ACCOUNT -->
+
+<section id="accountPage" class="page">
+
+  <div class="profile">
+
+    <div class="avatar"
+      id="avatar">
+      U
+    </div>
+
+    <h2 id="profileName">
+      Guest
+    </h2>
+
+    <small>
+      63CLUB  Account
+    </small>
+
+  </div>
+
+
+  <div class="account-menu">
+
+    <div class="account-item"
+      onclick="openPage('loginPage')">
+
+      <b>🔐 Login</b>
+      <span>→</span>
+
+    </div>
+
+
+    <div class="account-item"
+      onclick="openPage('registerPage')">
+
+      <b>📝 Sign Up</b>
+      <span>→</span>
+
+    </div>
+
+
+    <div class="account-item"
+      onclick="openPage('depositPage')">
+
+      <b>💰  Deposit</b>
+      <span>→</span>
+
+    </div>
+
+
+    <div class="account-item"
+      onclick="openPage('withdrawPage')">
+
+      <b>💸 Original Withdraw</b>
+      <span>→</span>
+
+    </div>
+
+
+    <div class="account-item"
+      onclick="logout()">
+
+      <b>🚪 Logout</b>
+      <span>→</span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- DEPOSIT -->
+
+<section id="depositPage" class="page">
+
+  <button class="back"
+    onclick="openPage('homePage')">
+    ←
+  </button>
+
+  <div class="form-box">
+
+    <h2> Deposit</h2>
+
+    <p>
+      Add virtual coins to your demo balance.
+    </p>
+
+    <input
+      id="depositAmount"
+      class="input"
+      type="number"
+      placeholder="Enter amount"
+    >
+
+    <button
+      class="full-btn"
+      onclick="deposit()">
+      Add Virtual Coins
+    </button>
+
+    <div class="demo-note">
+      This does not process real payments.
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- WITHDRAW -->
+
+<section id="withdrawPage" class="page">
+
+  <button class="back"
+    onclick="openPage('homePage')">
+    ←
+  </button>
+
+  <div class="form-box">
+
+    <h2> Original Withdraw</h2>
+
+    <p>
+      Remove virtual coins from your demo balance.
+    </p>
+
+    <input
+      id="withdrawAmount"
+      class="input"
+      type="number"
+      placeholder="Enter amount"
+    >
+
+    <button
+      class="full-btn"
+      onclick="withdraw()">
+      Withdraw Virtual Coins
+    </button>
+
+    <div class="demo-note">
+      This does not send real money.
+    </div>
+
+  </div>
+
+</section>
+
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+  <button
+    class="nav-btn active"
+    onclick="navPage('homePage',this)">
+
+    <span class="nav-icon">🏠</span>
+    Home
+
+  </button>
+
+
+  <button
+    class="nav-btn"
+    onclick="navPage('gamePage',this)">
+
+    <span class="nav-icon">🎮</span>
+    Game
+
+  </button>
+
+
+  <button
+    class="nav-btn"
+    onclick="navPage('historyPage',this)">
+
+    <span class="nav-icon">📜</span>
+    History
+
+  </button>
+
+
+  <button
+    class="nav-btn"
+    onclick="navPage('accountPage',this)">
+
+    <span class="nav-icon">👤</span>
+    Account
+
+  </button>
+
+</nav>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+let balance =
+  Number(localStorage.getItem("63_balance")) || 1000;
+
+let username =
+  localStorage.getItem("63_username") || "";
+
+let history =
+  JSON.parse(
+    localStorage.getItem("63_history") || "[]"
+  );
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function openPage(pageId){
+
+  document.querySelectorAll(".page")
+    .forEach(page => {
+      page.classList.remove("active");
+    });
+
+  const page =
+    document.getElementById(pageId);
+
+  if(page){
+    page.classList.add("active");
+  }
+
+  window.scrollTo(0,0);
+
+  updateUI();
+}
+
+
+function navPage(pageId,button){
+
+  openPage(pageId);
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+}
+
+
+/* =========================
+   UI UPDATE
+========================= */
+
+function updateUI(){
+
+  document.getElementById("topBalance")
+    .textContent = balance;
+
+  document.getElementById("homeBalance")
+    .textContent = balance;
+
+  if(username){
+
+    document.getElementById("profileName")
+      .textContent = username;
+
+    document.getElementById("avatar")
+      .textContent =
+      username.charAt(0).toUpperCase();
+
+  }else{
+
+    document.getElementById("profileName")
+      .textContent = "Guest";
+
+    document.getElementById("avatar")
+      .textContent = "U";
+  }
+
+  renderHistory();
+  renderLatest();
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function register(){
+
+  const user =
+    document.getElementById("regUsername")
+      .value.trim();
+
+  const pass =
+    document.getElementById("regPassword")
+      .value;
+
+  const confirm =
+    document.getElementById("regConfirm")
+      .value;
+
+
+  if(!user || !pass || !confirm){
+
+    toast("Sabhi fields fill karo");
+    return;
+
+  }
+
+
+  if(pass !== confirm){
+
+    toast("Password match nahi hai");
+    return;
+
+  }
+
+
+  if(pass.length < 4){
+
+    toast("Password minimum 4 characters ka rakho");
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "63_username",
+    user
+  );
+
+  localStorage.setItem(
+    "63_password",
+    pass
+  );
+
+
+  username = user;
+
+
+  toast("Account created successfully");
+
+
+  setTimeout(() => {
+
+    openPage("accountPage");
+
+  },700);
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+  const user =
+    document.getElementById("loginUsername")
+      .value.trim();
+
+  const pass =
+    document.getElementById("loginPassword")
+      .value;
+
+
+  const savedUser =
+    localStorage.getItem("63_username");
+
+  const savedPass =
+    localStorage.getItem("63_password");
+
+
+  if(!savedUser){
+
+    toast("Pehle Sign Up karo");
+    return;
+
+  }
+
+
+  if(user !== savedUser ||
+     pass !== savedPass){
+
+    toast("Username ya password galat");
+    return;
+
+  }
+
+
+  username = user;
+
+  localStorage.setItem(
+    "63_logged",
+    "true"
+  );
+
+
+  toast("Login successful");
+
+
+  setTimeout(() => {
+
+    openPage("homePage");
+
+  },700);
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+  localStorage.removeItem("63_logged");
+
+  toast("Logged out");
+
+  setTimeout(() => {
+
+    openPage("homePage");
+
+  },500);
+
+}
+
+
+/* =========================
+   DEPOSIT 
+========================= */
+
+function deposit(){
+
+  const amount =
+    Number(
+      document.getElementById("depositAmount")
+        .value
+    );
+
+
+  if(!amount || amount <= 0){
+
+    toast("Valid amount enter karo");
+    return;
+
+  }
+
+
+  if(amount > 100000){
+
+    toast(" limit exceeded");
+    return;
+
+  }
+
+
+  balance += amount;
+
+  localStorage.setItem(
+    "63_balance",
+    balance
+  );
+
+
+  document.getElementById("depositAmount")
+    .value = "";
+
+
+  toast(
+    "+" + amount +
+    " virtual coins added"
+  );
+
+
+  updateUI();
+
+}
+
+
+/* =========================
+   WITHDRAW Demo
+========================= */
+
+function withdraw(){
+
+  const amount =
+    Number(
+      document.getElementById("withdrawAmount")
+        .value
+    );
+
+
+  if(!amount || amount <= 0){
+
+    toast("Valid amount enter karo");
+    return;
+
+  }
+
+
+  if(amount > balance){
+
+    toast("Balance insufficient");
+    return;
+
+  }
+
+
+  balance -= amount;
+
+  localStorage.setItem(
+    "63_balance",
+    balance
+  );
+
+
+  document.getElementById("withdrawAmount")
+    .value = "";
+
+
+  toast(
+    amount +
+    " virtual coins removed"
+  );
+
+
+  updateUI();
+
+}
+
+
+/* =========================
+   COLOR GAME
+========================= */
+
+function playGame(choice){
+
+  if(balance < 10){
+
+    toast("Minimum 100 virtual coins required");
+    return;
+
+  }
+
+
+  /* Original entry */
+
+  const entry = 10;
+
+  balance -= entry;
+
+
+  const colors =
+    ["Red","Green","Violet"];
+
+  const result =
+    colors[
+      Math.floor(
+        Math.random() * colors.length
+      )
+    ];
+
+
+  const now =
+    new Date().toLocaleTimeString();
+
+
+  history.unshift({
+
+    choice: choice,
+
+    result: result,
+
+    time: now,
+
+    amount: entry
+
+  });
+
+
+  if(history.length > 50){
+
+    history =
+      history.slice(0,50);
+
+  }
+
+
+  localStorage.setItem(
+    "63_history",
+    JSON.stringify(history)
+  );
+
+
+  localStorage.setItem(
+    "63_balance",
+    balance
+  );
+
+
+  if(choice === result){
+
+    balance += 25;
+
+    localStorage.setItem(
+      "63_balance",
+      balance
+    );
+
+    toast(
+      "🎉 Result: " +
+      result +
+      " — Demo win +25"
+    );
+
+  }else{
+
+    toast(
+      "Result: " +
+      result
+    );
+
+  }
+
+
+  updateUI();
+
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function renderHistory(){
+
+  const box =
+    document.getElementById("historyList");
+
+  const gameBox =
+    document.getElementById("gameHistory");
+
+
+  let html = "";
+
+
+  if(history.length === 0){
+
+    html =
+      '<div class="empty">No games played yet.</div>';
+
+  }else{
+
+    html =
+      history.map(item => {
+
+        let cls =
+          "result-" +
+          item.result.toLowerCase();
+
+        return `
+
+          <div class="history-item">
+
+            <div class="history-left">
+
+              <b>
+                Your choice: ${item.choice}
+              </b>
+
+              <small>
+                ${item.time}
+              </small>
+
+            </div>
+
+            <div class="${cls}">
+              ${item.result}
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  }
+
+
+  if(box){
+
+    box.innerHTML = html;
+
+  }
+
+
+  if(gameBox){
+
+    gameBox.innerHTML =
+      history.slice(0,5).map(item => {
+
+        let cls =
+          "result-" +
+          item.result.toLowerCase();
+
+        return `
+
+          <div class="history-item">
+
+            <div class="history-left">
+
+              <b>${item.choice}</b>
+
+              <small>
+                ${item.time}
+              </small>
+
+            </div>
+
+            <div class="${cls}">
+              ${item.result}
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("") ||
+      '<div class="empty
